@@ -29,9 +29,13 @@ ps.
 #### Server端
 先設好socket後，每當有client要連線就創造一個新thread去處理它，並把client的sockfd放到fd陣列中。
 和client端連線成功後會先要求client端登入，若登入成功並開始不段監聽client的要求。
+
 (1)如果收到ls便列出所有的在線名單的帳號和對應的fd。
+
 (2)若收到@fd，即表示想和哪個client發起對戰，server會發出CONNECT訊號去詢問被邀請的client端，若client端同意，回傳AGREE訊號，雙方建立連線開始遊戲。
+
 (3)若收到#(0~8)代表想把圈圈叉叉下在哪個位置，server端會直接傳給對手的client端。
+
 (4)
 
 #### Client端
