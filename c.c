@@ -8,9 +8,9 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-int sockfd;//客户端socket
+int sockfd;
 int filefd,G=0,IsMe=0;
-char* IP = "192.168.10.143";//服务器的IP
+char* IP = "192.168.10.143";
 short PORT = 10222;//服务器服务端口
 typedef struct sockaddr SA;
 char name[30];
@@ -65,7 +65,7 @@ void start(){
 	char buf2[100] = {};
 	while(1){
 		recv(sockfd,buf2,sizeof(buf2),0);
-		if (strcmp(buf2,"server-req-name?") == 0){
+		if (strcmp(buf2,"authenticate") == 0){
 			send(sockfd,name,strlen(name),0);
 			break;
 		}
@@ -187,7 +187,7 @@ void* recv_thread(void* p){
 		if (recv(sockfd,buf,sizeof(buf),0) <= 0){
 			return;
 		}
-		if (strcmp(buf,"server-req-name ?") == 0){
+		if (strcmp(buf,"authenticate") == 0){
 			send(sockfd,name,strlen(name),0);
 		}
 		else if(strncmp(buf,"CONNECT ",8)==0)
